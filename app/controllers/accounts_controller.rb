@@ -24,6 +24,7 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   def new
     @account = Account.new
+    render component: 'AccountForm', props: { account: @account }, tag: 'span'
   end
 
   # GET /accounts/1/edit
