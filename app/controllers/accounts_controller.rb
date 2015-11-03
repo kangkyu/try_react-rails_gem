@@ -22,9 +22,14 @@ class AccountsController < ApplicationController
 
   # GET /accounts/new
   def new
-    @account = Account.new
+    # @account = Account.new
+    # render component: 'AccountForm', props: { account: @account }, tag: 'span'
 
-    render component: 'AccountForm', props: { account: @account }, tag: 'span'
+    form = {
+      action: accounts_path,
+      csrf_param: request_forgery_protection_token,
+      csrf_token: form_authenticity_token }
+    render component: 'AccountForm', props: { form: form }, tag: 'div'
   end
 
   # GET /accounts/1/edit
@@ -35,16 +40,18 @@ class AccountsController < ApplicationController
   # POST /accounts.json
   def create
     @account = Account.new(account_params)
+    @account.save
+    redirect_to accounts_url
 
-    respond_to do |format|
-      if @account.save
-        format.html { redirect_to @account, notice: 'Account was successfully created.' }
-        format.json { render :show, status: :created, location: @account }
-      else
-        format.html { render :new }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+    #   if @account.save
+    #     format.html { redirect_to @account, notice: 'Account was successfully created.' }
+    #     format.json { render :show, status: :created, location: @account }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @account.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /accounts/1

@@ -5,8 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Account.delete_all
 accounts = Account.create! [
-  {name: "James Kim"},
-  {name: "Steve Chow"},
-  {name: "Richard Reng"}
+  {name: "James Lorem"},
+  {name: "Steve Ipsum"},
+  {name: "Richard Seven Stars"}
 ]

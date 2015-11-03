@@ -1,21 +1,7 @@
 var AccountForm = React.createClass({
 
   getInitialState: function() {
-    return {};
-  },
-
-  handleSubmit: function(e) {
-    $.ajax({
-      url: '/accounts',
-      dataType: 'json',
-      type: 'POST',
-      data: {
-        account: {
-          name: this.state.name
-        }
-      }
-    })
-    e.preventDefault();
+    return (this.props.form);
   },
 
   inputChange: function(e) {
@@ -28,11 +14,17 @@ var AccountForm = React.createClass({
     return (
       <div>
         <h3>{this.state.name}</h3>
-        <form className="account-form" onSubmit={this.handleSubmit}>
-          <input type="text" placeholder="name" onChange={this.inputChange} />
-          <input type="submit" value="Add Account" />
+        <form className="new_account" id="new_account" action={ this.state.action } acceptCharset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓" /><input type="hidden" name={ this.state.csrf_param } value={ this.state.csrf_token } />
+          <div className="field">
+            <label htmlFor="account_name">Name</label><br />
+            <input type="text" name="account[name]" id="account_name" placeholder="Name" onChange={this.inputChange} />
+          </div>
+          <div className="actions">
+            <input type="submit" name="commit" value="Create Account" />
+          </div>
         </form>
       </div>
     );
   }
+
 });
