@@ -23,12 +23,14 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   def new
     @account = Account.new
-    form = {
+
+    form = ActionController::Parameters.new({
       action: accounts_path,
       csrf_param: request_forgery_protection_token,
-      csrf_token: form_authenticity_token }
+      csrf_token: form_authenticity_token
+    })
 
-    render component: 'AccountForm', props: { form: form, account: @account }, tag: 'div'
+    render component: 'AccountForm', props: { form: form, account: @account }, tag: 'span'
   end
 
   # GET /accounts/1/edit

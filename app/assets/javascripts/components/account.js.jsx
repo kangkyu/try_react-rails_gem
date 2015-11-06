@@ -6,7 +6,7 @@ var Account = React.createClass({
   render: function() {
     return (
       <div>
-        <div>Name: {this.props.name}</div>
+        <div>Name: {this.props.account.name}</div>
       </div>
     );
   }
@@ -16,7 +16,7 @@ var AccountList = React.createClass({
   render: function() {
     var accountNode = this.props.accounts.map(function (account) {
       return (
-        <Account name={account.name} key={account.id} />
+        <Account account={account} key={account.id} />
       );
     });
     return (
