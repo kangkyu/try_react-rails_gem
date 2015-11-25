@@ -19,6 +19,7 @@ var AccountList = React.createClass({
         <Account account={account} key={account.id} />
       );
     });
+    console.log(this.props.accounts);
     return (
       <div>
         { accountNode }

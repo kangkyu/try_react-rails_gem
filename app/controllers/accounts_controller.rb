@@ -23,14 +23,7 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   def new
     @account = Account.new
-
-    form = ActionController::Parameters.new({
-      action: accounts_path,
-      csrf_param: request_forgery_protection_token,
-      csrf_token: form_authenticity_token
-    })
-
-    render component: 'AccountForm', props: { form: form, account: @account }, tag: 'span'
+    render component: 'AccountForm', props: { form: form_params, account: @account, any_error: @account.errors.any? }, tag: 'span'
   end
 
   # GET /accounts/1/edit
@@ -41,8 +34,14 @@ class AccountsController < ApplicationController
   # POST /accounts.json
   def create
     @account = Account.new(account_params)
-    @account.save
-    redirect_to accounts_url
+    if @account.save
+      redirect_to accounts_url
+    else
+      # pluralize(@account.errors.count, "error")
+      # @account.errors.any?
+      errors = @account.errors.full_messages
+      render component: 'AccountForm', props: { form: form_params, account: @account, any_error: @account.errors.any?, errors: errors }, tag: 'span'
+    end
 
     # respond_to do |format|
     #   if @account.save
@@ -88,5 +87,13 @@ class AccountsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def account_params
       params.require(:account).permit(:name)
+    end
+
+    def form_params
+      ActionController::Parameters.new({
+        action: accounts_path,
+        csrf_param: request_forgery_protection_token,
+        csrf_token: form_authenticity_token
+      })
     end
 end
