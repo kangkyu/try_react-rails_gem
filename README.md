@@ -106,7 +106,9 @@ var AccountForm = React.createClass({
   render: function() {
     return (
       <div>
-        <form className="new_account" id="new_account" action={ (this.props.form).action } acceptCharset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓" /><input type="hidden" name={ (this.props.form).csrf_param } value={ (this.props.form).csrf_token } />
+        <form className="new_account" id="new_account" action={ (this.props.form).action } acceptCharset="UTF-8" method="post">
+        <input name="utf8" type="hidden" value="✓" />
+        <input type="hidden" name={ (this.props.form).csrf_param } value={ (this.props.form).csrf_token } />
           <div className="field">
             <label htmlFor="account_name">Name</label><br />
             <input type="text" name="account[name]" id="account_name" placeholder="Name" />
